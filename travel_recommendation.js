@@ -76,15 +76,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const fetchData = (keyword = '') => {
         console.log('Fetching data...');
         fetch('https://raw.githubusercontent.com/Zerrad0z/Zerrad0z.github.io/main/travel_recommendation_api.json')
-        .then(response => {
-                console.log('Response:', response);
-                return response.json();
-            })
-            .then(data => {
-                console.log('Data fetched successfully:', data);
-                displayResults(data, keyword);
-            })
-            .catch(error => console.error('Error fetching data:', error));
+    .then(response => response.json())
+    .then(data => {
+        console.log('Data fetched successfully:', data);
+        displayResults(data, keyword);
+    })
+    .catch(error => console.error('Error fetching data:', error));
+
     };
 
     const updateCurrentTime = () => {
