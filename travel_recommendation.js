@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const fetchData = (keyword = '') => {
         console.log('Fetching data...');
-        fetch('https://github.com/Zerrad0z/Zerrad0z.github.io/blob/main/travel_recommendation_api.json')
+        fetch('https://raw.githubusercontent.com/Zerrad0z/Zerrad0z.github.io/main/travel_recommendation_api.json')
         .then(response => {
                 console.log('Response:', response);
                 return response.json();
