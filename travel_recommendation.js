@@ -13,7 +13,7 @@ async function handleSearch(event) {
 
     const data = await fetchData();
     if (!data) {
-        document.getElementById('results').innerText = 'No results found';
+        document.getElementById('result').innerText = 'No results found';
         return;
     }
 
@@ -32,7 +32,7 @@ async function handleSearch(event) {
         data.countries.forEach(country => {
             if (country.name.toLowerCase().includes(searchQuery)) {
                 country.cities.forEach(city => {
-                    results += `<div><img src="${city.imageUrl}" alt="${city.name}"><h3>${city.name}</h3><p>${city.description}</p></div>`;
+                    results += `<img src="${city.imageUrl}" alt="${city.name}"><div><h3>${city.name}</h3><p>${city.description}</p></div>`;
                 });
             }
         });
@@ -47,6 +47,13 @@ function clearResults() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('searchForm').addEventListener('submit', handleSearch);
-    document.getElementById('resetButton').addEventListener('click', clearResults);
+    const searchButton = document.getElementById('btnSearch');
+    const clearButton = document.getElementById('btnClear');
+
+    if (searchButton && clearButton) {
+        searchButton.addEventListener('click', handleSearch);
+        clearButton.addEventListener('click', clearResults);
+    } else {
+        console.error('Buttons not found in the DOM.');
+    }
 });
