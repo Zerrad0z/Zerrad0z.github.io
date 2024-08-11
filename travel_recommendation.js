@@ -1,115 +1,52 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Script loaded and DOM is ready');
+async function fetchData() {
+    try {
+        const response = await fetch('https://raw.githubusercontent.com/Zerrad0z/Zerrad0z.github.io/main/travel_recommendation_api.json');
+        return await response.json();
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+}
 
-    const resultsContainer = document.getElementById('results');
-    const searchForm = document.getElementById('searchForm');
-    const searchInput = document.getElementById('searchInput');
-    const resetButton = document.getElementById('resetButton');
-    const currentTimeElement = document.getElementById('currentTime');
+async function handleSearch(event) {
+    event.preventDefault();
 
-    const createCard = (name, imageUrl, description, timeZone) => {
-        const options = { timeZone: timeZone, hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' };
-        const currentTime = new Date().toLocaleTimeString('en-US', options);
-        return `
-            <div class="card mb-3 bg-dark text-white" style="max-width: 500px;">
-                <div class="card-header">${name} - Current Time: ${currentTime}</div>
-                <img src="${imageUrl}" class="card-img-top" alt="${name}" style="height: 300px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">${name}</h5>
-                    <p class="card-text">${description}</p>
-                    <a href="#" class="btn btn-primary">Visit</a>
-                </div>
-            </div>
-        `;
-    };
+    const data = await fetchData();
+    if (!data) {
+        document.getElementById('result').innerText = 'No results found';
+        return;
+    }
 
-    const displayResults = (data, keyword) => {
-        console.log('Displaying results for keyword:', keyword);
-        resultsContainer.innerHTML = '';
-        let resultsFound = false;
+    const searchQuery = document.getElementById('destinationInput').value.toLowerCase();
+    let results = '';
 
-        if (keyword) {
-            const lowerCaseKeyword = keyword.toLowerCase();
-
-            data.countries.forEach(country => {
-                if (country.name.toLowerCase().includes(lowerCaseKeyword)) {
-                    resultsFound = true;
-                    country.cities.forEach(city => {
-                        resultsContainer.innerHTML += createCard(city.name, city.imageUrl, city.description, 'Australia/Sydney');
-                    });
-                } else {
-                    country.cities.forEach(city => {
-                        if (city.name.toLowerCase().includes(lowerCaseKeyword)) {
-                            resultsFound = true;
-                            resultsContainer.innerHTML += createCard(city.name, city.imageUrl, city.description, 'Australia/Sydney');
-                        }
-                    });
-                }
-            });
-
-            data.temples.forEach(temple => {
-                console.log('Checking temple:', temple.name);
-                if (temple.name.toLowerCase().includes(lowerCaseKeyword)) {
-                    console.log('Match found for temple:', temple.name);
-                    resultsFound = true;
-                    resultsContainer.innerHTML += createCard(temple.name, temple.imageUrl, temple.description, 'Asia/Phnom_Penh');
-                }
-            });
-
-            data.beaches.forEach(beach => {
-                console.log('Checking beach:', beach.name);
-                if (beach.name.toLowerCase().includes(lowerCaseKeyword)) {
-                    console.log('Match found for beach:', beach.name);
-                    resultsFound = true;
-                    resultsContainer.innerHTML += createCard(beach.name, beach.imageUrl, beach.description, 'Pacific/Tahiti');
-                }
-            });
-
-            if (!resultsFound) {
-                resultsContainer.innerHTML = '<p>No results found.</p>';
+    if (searchQuery == 'temples' || searchQuery == 'temple') {
+        data.temples.forEach(temple => {
+            results += `<div><img src="${temple.imageUrl}" alt="${temple.name}"><h3>${temple.name}</h3><p>${temple.description}</p></div>`;
+        });
+    } else if (searchQuery == 'beaches' || searchQuery == 'beach') {
+        data.beaches.forEach(beach => {
+            results += `<div><img src="${beach.imageUrl}" alt="${beach.name}"><h3>${beach.name}"></h3><p>${beach.description}</p></div>`;
+        });
+    } else {
+        data.countries.forEach(country => {
+            if (country.name.toLowerCase().includes(searchQuery)) {
+                country.cities.forEach(city => {
+                    results += `<img src="${city.imageUrl}" alt="${city.name}"><div><h3>${city.name}</h3><p>${city.description}</p></div>`;
+                });
             }
-        } else {
-            resultsContainer.innerHTML = '<p>Enter a search term to see results.</p>';
-        }
-    };
+        });
+    }
+    document.querySelector('#result').classList.add("result-card");
+    document.getElementById('result').innerHTML = results;
+}
 
-    const fetchData = (keyword = '') => {
-        console.log('Fetching data...');
-        fetch('https://raw.githubusercontent.com/Zerrad0z/Zerrad0z.github.io/main/travel_recommendation_api.json')
-    .then(response => response.json())
-    .then(data => {
-        console.log('Data fetched successfully:', data);
-        displayResults(data, keyword);
-    })
-    .catch(error => console.error('Error fetching data:', error));
+function clearResults() {
+    document.getElementById('destinationInput').value = '';
+    document.getElementById('result').innerHTML = '';
+}
 
-    };
-
-    const updateCurrentTime = () => {
-        if (currentTimeElement) {
-            const options = { timeZone: 'Africa/Casablanca', hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' };
-            const currentTime = new Date().toLocaleTimeString('en-US', options);
-            currentTimeElement.textContent = `Current Time in Casablanca: ${currentTime}`;
-        }
-    };
-
-    searchForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        console.log('Search form submitted');
-        const keyword = searchInput.value.trim();
-        console.log('Search form submitted with keyword:', keyword);
-        fetchData(keyword);
-    });
-
-    resetButton.addEventListener('click', () => {
-        console.log('Reset button clicked');
-        searchInput.value = '';
-        resultsContainer.innerHTML = '<p></p>';
-    });
-
-    // Initial state
-    console.log('Setting initial state');
-    resultsContainer.innerHTML = '<p></p>';
-    setInterval(updateCurrentTime, 1000);
-    updateCurrentTime();
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('btnSearch').addEventListener('click', handleSearch);
+    document.getElementById('btnClear').addEventListener('click', clearResults);
 });
