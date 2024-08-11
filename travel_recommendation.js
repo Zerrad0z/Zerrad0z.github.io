@@ -13,7 +13,7 @@ async function handleSearch(event) {
 
     const data = await fetchData();
     if (!data) {
-        document.getElementById('result').innerText = 'No results found';
+        document.getElementById('results').innerText = 'No results found';
         return;
     }
 
@@ -47,13 +47,14 @@ function clearResults() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    const searchForm = document.getElementById('searchForm');
     const searchButton = document.getElementById('btnSearch');
-    const clearButton = document.getElementById('btnClear');
+    const clearButton = document.getElementById('resetButton');
 
-    if (searchButton && clearButton) {
-        searchButton.addEventListener('click', handleSearch);
+    if (searchForm && searchButton && clearButton) {
+        searchForm.addEventListener('submit', handleSearch);
         clearButton.addEventListener('click', clearResults);
     } else {
-        console.error('Buttons not found in the DOM.');
+        console.error('Form or buttons not found in the DOM.');
     }
 });
