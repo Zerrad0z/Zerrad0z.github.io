@@ -20,19 +20,57 @@ async function handleSearch(event) {
     const searchQuery = document.getElementById('searchInput').value.toLowerCase();
     let results = '';
 
+    const getCurrentTime = (timeZone) => {
+        const options = { timeZone: timeZone, hour12: true, hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        return new Date().toLocaleTimeString('en-US', options);
+    };
+
     if (searchQuery === 'temples' || searchQuery === 'temple') {
         data.temples.forEach(temple => {
-            results += `<div><img src="${temple.imageUrl}" alt="${temple.name}"><h3>${temple.name}</h3><p>${temple.description}</p></div>`;
+            const currentTime = getCurrentTime('Asia/Phnom_Penh'); // Assuming temples are in Cambodia
+            results += `
+                <div class="card mb-3 bg-dark text-white" style="max-width: 500px;">
+                    <div class="card-header">${temple.name} - Current Time: ${currentTime}</div>
+                    <img src="${temple.imageUrl}" class="card-img-top" alt="${temple.name}" style="height: 300px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">${temple.name}</h5>
+                        <p class="card-text">${temple.description}</p>
+                        <a href="#" class="btn btn-primary">Visit</a>
+                    </div>
+                </div>
+            `;
         });
     } else if (searchQuery === 'beaches' || searchQuery === 'beach') {
         data.beaches.forEach(beach => {
-            results += `<div><img src="${beach.imageUrl}" alt="${beach.name}"><h3>${beach.name}</h3><p>${beach.description}</p></div>`;
+            const currentTime = getCurrentTime('Pacific/Tahiti'); // Assuming beaches are in Tahiti
+            results += `
+                <div class="card mb-3 bg-dark text-white" style="max-width: 500px;">
+                    <div class="card-header">${beach.name} - Current Time: ${currentTime}</div>
+                    <img src="${beach.imageUrl}" class="card-img-top" alt="${beach.name}" style="height: 300px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">${beach.name}</h5>
+                        <p class="card-text">${beach.description}</p>
+                        <a href="#" class="btn btn-primary">Visit</a>
+                    </div>
+                </div>
+            `;
         });
     } else {
         data.countries.forEach(country => {
             if (country.name.toLowerCase().includes(searchQuery)) {
                 country.cities.forEach(city => {
-                    results += `<img src="${city.imageUrl}" alt="${city.name}"><div><h3>${city.name}</h3><p>${city.description}</p></div>`;
+                    const currentTime = getCurrentTime('Australia/Sydney'); // Assuming cities are in Australia
+                    results += `
+                        <div class="card mb-3 bg-dark text-white" style="max-width: 500px;">
+                            <div class="card-header">${city.name} - Current Time: ${currentTime}</div>
+                            <img src="${city.imageUrl}" class="card-img-top" alt="${city.name}" style="height: 300px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">${city.name}</h5>
+                                <p class="card-text">${city.description}</p>
+                                <a href="#" class="btn btn-primary">Visit</a>
+                            </div>
+                        </div>
+                    `;
                 });
             }
         });
