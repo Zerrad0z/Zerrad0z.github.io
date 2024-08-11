@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Recommendations</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg custom-navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="images/plane.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                    AirTravel
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="travel_recommendation.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="about-us.html">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="contact-us.html">Contact Us</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex" id="searchForm">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                        <button class="btn btn-outline-success me-2" type="submit">
+                            <img src="images/search.png" alt="Search" width="24" height="24">
+                        </button>
+                        <button class="btn btn-outline-success" type="button" id="resetButton">Reset</button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container-fluid d-flex flex-row align-items-start justify-content-start">
+        <div class="left-column">
+            <div class="text-start mt-4">
+                <h1 class="display-1 text-white">Explore dream destinations</h1>
+                <p class="lead text-white">Discover the world with us. We offer the best travel recommendations tailored to your preferences.</p>
+                <button class="btn btn-dark btn-lg mb-4">Book Now</button>
+                <div class="social-icons mt-4">
+                    <a href="#" class="me-3" aria-label="Facebook">
+                        <img src="images/facebook.png" alt="Facebook" width="24" height="24">
+                    </a>
+                    <a href="#" class="me-3" aria-label="Twitter">
+                        <img src="images/twitter.png" alt="Twitter" width="24" height="24">
+                    </a>
+                    <a href="#" class="me-3" aria-label="Instagram">
+                        <img src="images/instagram.png" alt="Instagram" width="24" height="24">
+                    </a>
+                    <a href="#" class="me-3" aria-label="YouTube">
+                        <img src="images/youtube.png" alt="YouTube" width="24" height="24">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="results" class="right-column mt-5">
+            <!-- Results from JSON will be injected here -->
+        </div>
+    </main>
+
+    <script src="travel_recommendation.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

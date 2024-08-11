@@ -1,0 +1,105 @@
+body {
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 56px; /* Add padding to body to prevent content from being hidden under the fixed navbar */
+}
+
+main {
+    min-height: calc(100vh - 56px);
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-column {
+    width: 30%;
+    padding-right: 20px;
+    position: sticky;
+    top: 56px; /* Position sticky with top offset to match navbar height */
+    align-self: flex-start; /* Ensure it stays at the top */
+}
+
+.right-column {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Align content to the right */
+}
+
+.social-icons {
+    margin-top: 40px; /* Increased margin to move social icons further down */
+}
+
+.social-icons a:hover {
+    opacity: 0.7;
+}
+
+.custom-navbar {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure navbar is above other content */
+}
+
+.custom-navbar .navbar-brand {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.custom-navbar .navbar-brand:hover {
+    color: #f8f9fa;
+}
+
+.custom-navbar .nav-link {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover {
+    color: #f8f9fa;
+}
+
+.custom-navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.custom-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.custom-navbar .form-control {
+    background-color: #fff;
+    border-color: #fff;
+    color: #000;
+}
+
+.custom-navbar .form-control::placeholder {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.custom-navbar .btn-outline-success {
+    border-color: #28a745;
+    color: #28a745;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-navbar .btn-outline-success:hover {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.card-img-top {
+    object-fit: cover;
+}
