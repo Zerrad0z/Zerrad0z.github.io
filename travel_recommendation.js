@@ -47,14 +47,6 @@ function clearResults() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const searchForm = document.getElementById('searchForm');
-    const resetButton = document.getElementById('resetButton');
-
-    if (searchForm) {
-        searchForm.addEventListener('submit', handleSearch);
-    }
-
-    if (resetButton) {
-        resetButton.addEventListener('click', clearResults);
-    }
+    document.getElementById('searchForm').addEventListener('submit', handleSearch);
+    document.getElementById('resetButton').addEventListener('click', clearResults);
 });
