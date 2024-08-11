@@ -13,40 +13,40 @@ async function handleSearch(event) {
 
     const data = await fetchData();
     if (!data) {
-        document.getElementById('result').innerText = 'No results found';
+        document.getElementById('results').innerText = 'No results found';
         return;
     }
 
-    const searchQuery = document.getElementById('destinationInput').value.toLowerCase();
+    const searchQuery = document.getElementById('searchInput').value.toLowerCase();
     let results = '';
 
-    if (searchQuery == 'temples' || searchQuery == 'temple') {
+    if (searchQuery === 'temples' || searchQuery === 'temple') {
         data.temples.forEach(temple => {
             results += `<div><img src="${temple.imageUrl}" alt="${temple.name}"><h3>${temple.name}</h3><p>${temple.description}</p></div>`;
         });
-    } else if (searchQuery == 'beaches' || searchQuery == 'beach') {
+    } else if (searchQuery === 'beaches' || searchQuery === 'beach') {
         data.beaches.forEach(beach => {
-            results += `<div><img src="${beach.imageUrl}" alt="${beach.name}"><h3>${beach.name}"></h3><p>${beach.description}</p></div>`;
+            results += `<div><img src="${beach.imageUrl}" alt="${beach.name}"><h3>${beach.name}</h3><p>${beach.description}</p></div>`;
         });
     } else {
         data.countries.forEach(country => {
             if (country.name.toLowerCase().includes(searchQuery)) {
                 country.cities.forEach(city => {
-                    results += `<img src="${city.imageUrl}" alt="${city.name}"><div><h3>${city.name}</h3><p>${city.description}</p></div>`;
+                    results += `<div><img src="${city.imageUrl}" alt="${city.name}"><h3>${city.name}</h3><p>${city.description}</p></div>`;
                 });
             }
         });
     }
-    document.querySelector('#result').classList.add("result-card");
-    document.getElementById('result').innerHTML = results;
+    document.querySelector('#results').classList.add("result-card");
+    document.getElementById('results').innerHTML = results;
 }
 
 function clearResults() {
-    document.getElementById('destinationInput').value = '';
-    document.getElementById('result').innerHTML = '';
+    document.getElementById('searchInput').value = '';
+    document.getElementById('results').innerHTML = '';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('btnSearch').addEventListener('click', handleSearch);
-    document.getElementById('btnClear').addEventListener('click', clearResults);
+    document.getElementById('searchForm').addEventListener('submit', handleSearch);
+    document.getElementById('resetButton').addEventListener('click', clearResults);
 });
