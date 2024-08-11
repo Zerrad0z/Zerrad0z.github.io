@@ -75,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const fetchData = (keyword = '') => {
         console.log('Fetching data...');
-        fetch('http://localhost:8080/travel_recommendation_api.json')
-            .then(response => {
+        fetch('https://github.com/Zerrad0z/Zerrad0z.github.io/blob/main/travel_recommendation_api.json')
+        .then(response => {
                 console.log('Response:', response);
                 return response.json();
             })
